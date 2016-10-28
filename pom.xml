@@ -58,11 +58,7 @@
             <version>8.1.4</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.avaje.ebean</groupId>
-            <artifactId>ebean-ignite</artifactId>
-            <version>1.3.2</version>
-        </dependency>
+        
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -81,6 +77,30 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- Clustering deps -->
+        <dependency>
+            <groupId>org.avaje.ebean</groupId>
+            <artifactId>ebean-cluster</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        
+        <!-- Ignite deps -->
+        <!--  <dependency>
+            <groupId>org.avaje.ebean</groupId>
+            <artifactId>ebean-ignite</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ignite</groupId>
+            <artifactId>ignite-core</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ignite</groupId>
+            <artifactId>ignite-slf4j</artifactId>
+            <version>1.7.0</version>
+        </dependency>-->
+        
     </dependencies>
 
     <build>
