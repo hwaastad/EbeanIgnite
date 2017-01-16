@@ -5,7 +5,7 @@
  */
 package org.waastad.ebeaniginte.domain;
 
-import com.avaje.ebean.Model;
+import io.ebean.Model;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

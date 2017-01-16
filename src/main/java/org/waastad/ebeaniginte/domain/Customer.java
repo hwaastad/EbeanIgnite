@@ -5,7 +5,9 @@
  */
 package org.waastad.ebeaniginte.domain;
 
+import org.waastad.ebeaniginte.domain.finder.CustomerFinder;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,9 +26,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Customer extends BaseModel {
 
+    public static final CustomerFinder find = new CustomerFinder();
+
     private String name;
 
-    @OneToMany(targetEntity = User.class)
+    @OneToMany(targetEntity = User.class,cascade = CascadeType.ALL)
     private List<User> users;
+
+    public Customer(String name) {
+        this.name = name;
+    }
 
 }
