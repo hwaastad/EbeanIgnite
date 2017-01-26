@@ -6,9 +6,10 @@
 package org.waastad.ebeaniginte.ejb;
 
 import io.ebean.EbeanServerFactory;
+import io.ebean.config.ContainerConfig;
 import io.ebean.config.ServerConfig;
 import io.ebean.config.dbplatform.hsqldb.HsqldbPlatform;
-import java.util.Arrays;
+import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
@@ -16,11 +17,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.sql.DataSource;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ignite.configuration.IgniteConfiguration;
-import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi;
-import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder;
 import org.waastad.ebeaniginte.domain.User;
-import org.waastad.ebeaniginte.ignite.MyAddressResolver;
 
 /**
  *
@@ -37,6 +34,15 @@ public class EbeanInitBean {
     @PostConstruct
     public void init() {
         log.info("Initilizing Ebean and Ignite......");
+        
+//        ContainerConfig cc = new ContainerConfig();
+//        cc.setClusterActive(true);
+//        Properties properties = new Properties();
+//        properties.put("ebean.cluster.localHostPort", "127.0.0.1:9942");
+//        properties.put("ebean.cluster.members", "127.0.0.1:9942");
+//        cc.setProperties(properties);
+//        EbeanServerFactory.initialiseContainer(cc);
+        
         ServerConfig config = new ServerConfig();
         config.loadFromProperties();
         config.setDataSource(dsu);
@@ -50,19 +56,19 @@ public class EbeanInitBean {
         config.setAutoCommitMode(false);
         config.addPackage(User.class.getPackage().getName());
 
-        //Ignite config
-        IgniteConfiguration ic = new IgniteConfiguration();
-        ic.setClientMode(true);
-        TcpDiscoverySpi discoverySpi = new TcpDiscoverySpi();
-        TcpDiscoveryVmIpFinder ipFinder = new TcpDiscoveryVmIpFinder();
-        discoverySpi.setAddressResolver(new MyAddressResolver());
-//        ipFinder.setAddresses(Arrays.asList("127.0.0.1:47501"));
-        ipFinder.setAddresses(Arrays.asList("rancher-01.lab.dax.local"));
-        discoverySpi.setIpFinder(ipFinder);
-        ic.setDiscoverySpi(discoverySpi);
-        
-        config.putServiceObject("igniteConfiguration", ic);
-        
+//        //Ignite config
+//        IgniteConfiguration ic = new IgniteConfiguration();
+//        ic.setClientMode(true);
+//        TcpDiscoverySpi discoverySpi = new TcpDiscoverySpi();
+//        TcpDiscoveryVmIpFinder ipFinder = new TcpDiscoveryVmIpFinder();
+//        discoverySpi.setAddressResolver(new MyAddressResolver());
+////        ipFinder.setAddresses(Arrays.asList("127.0.0.1:47501"));
+//        ipFinder.setAddresses(Arrays.asList("rancher-01.lab.dax.local"));
+//        discoverySpi.setIpFinder(ipFinder);
+//        ic.setDiscoverySpi(discoverySpi);
+//        
+//        config.putServiceObject("igniteConfiguration", ic);
+//        
         EbeanServerFactory.create(config);
     }
     
